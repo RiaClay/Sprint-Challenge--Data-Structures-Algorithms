@@ -1,6 +1,62 @@
+const swap = (arr, firstIndex, secondIndex) => {
+  const placeHolder = arr[firstIndex];
+  arr[firstIndex] = arr[secondIndex];
+  arr[secondIndex] = placeHolder;
+}
+
+const childSort = (heap, i, max) => {
+  let index;
+  let leftChild;
+  let rightChild;
+
+  while (i < max) {
+    index = i;
+
+    leftChild = 2 * i + 1;
+    rightChild = leftChild + 1;
+
+    if (leftChild < max && heap[leftChild] > heap[index]) {
+      index = leftChild;
+    }
+
+    if (rightChild < max && heap[rightChild] > heap[index]) {
+      index = rightChild;
+    }
+
+    if (index == i) {
+      return;
+    }
+
+    swap(heap, i, index);
+
+    i = index;
+  }
+}
+
+const buildHeap = (arr) => {
+  let i;
+  i = Math.floor(arr.length / 2 - 1);
+
+  while (i >= 0) {
+    childSort(arr, i, arr.length);
+    i -= 1;
+  }
+}
+
 const heapsort = (arr) => {
   /* Your code here */
-  
+  buildHeap(arr);
+
+  lastElement = arr.length - 1;
+
+  while (lastElement > 0) {
+    swap(arr, 0, lastElement);
+
+    childSort(arr, 0, lastElement);
+
+    lastElement -= 1;
+  }
+
 };
 
 class Heap {
